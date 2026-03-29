@@ -10,42 +10,55 @@ body {
   inset: 0;
 }
 
-/* Header */
+/* HEADER */
 .header {
   position: fixed;
-  top: 10px;
-  left: 10px;
+  top: 15px;
+  left: 15px;
   display: flex;
   gap: 10px;
   z-index: 1000;
 }
 
 .brand {
-  background: #1c202e;
-  padding: 10px;
+  background: rgba(0,0,0,0.6);
+  padding: 10px 14px;
   border-radius: 10px;
+  font-weight: bold;
 }
 
-.search-box input {
+#searchInput {
   padding: 10px;
   border-radius: 10px;
   border: none;
+  outline: none;
 }
 
-/* Panel */
+/* PANEL */
 .info-panel {
   position: fixed;
-  bottom: 10px;
-  left: 10px;
+  bottom: 15px;
+  left: 15px;
   width: 300px;
-  background: #1c202e;
-  border-radius: 15px;
-  padding: 10px;
+  background: rgba(0,0,0,0.7);
+  border-radius: 16px;
+  padding: 12px;
 }
 
-/* Fare UI */
-.fare-container {
-  margin-top: 10px;
+.title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+/* ===== FARE UI ===== */
+
+#fareBox {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -54,9 +67,14 @@ body {
 .fare-card {
   display: flex;
   justify-content: space-between;
-  background: #12151e;
+  background: rgba(255,255,255,0.08);
   padding: 10px;
   border-radius: 10px;
+  transition: 0.2s;
+}
+
+.fare-card:hover {
+  transform: translateY(-2px);
 }
 
 .fare-card.cheapest {
@@ -68,14 +86,11 @@ body {
   gap: 8px;
 }
 
-.fare-name {
-  font-weight: bold;
-}
-
 .badge {
   font-size: 10px;
-  padding: 2px 5px;
+  padding: 2px 6px;
   border-radius: 5px;
+  margin-left: 5px;
 }
 
 .badge.best {
