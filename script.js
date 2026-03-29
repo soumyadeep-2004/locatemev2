@@ -1,46 +1,27 @@
-/* ================= STATE ================= */
 let userCoords = null;
 let destCoords = null;
 let routeLine = null;
 let lastDistKm = 0;
 let lastDurMin = 0;
 
-/* ================= MAP ================= */
 const map = L.map("map").setView([20.5937, 78.9629], 5);
 
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
 
-/* ================= GEOLOCATION ================= */
+/* Location */
 navigator.geolocation.getCurrentPosition((pos) => {
   userCoords = [pos.coords.latitude, pos.coords.longitude];
   map.setView(userCoords, 14);
 });
 
-/* ================= CLICK TO SET DEST ================= */
+/* Click */
 map.on("click", async (e) => {
   const { lat, lng } = e.latlng;
 
+  destCoords = [lat, lng];
+
   const res = await fetch(
-    `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
-  );
-  const data = await res.json();
-
-  placeDestination(lat, lng, data.display_name);
-});
-
-/* ================= DESTINATION ================= */
-function placeDestination(lat, lon, name) {
-  destCoords = [lat, lon];
-
-  document.getElementById("panelName").textContent = name;
-
-  if (userCoords) fetchRoute(lat, lon);
-}
-
-/* ================= ROUTING ================= */
-async function fetchRoute(lat, lon) {
-  const res = await fetch(
-    `https://router.project-osrm.org/route/v1/driving/${userCoords[1]},${userCoords[0]};${lon},${lat}?overview=full&geometries=geojson`
+    `https://router.project-osrm.org/route/v1/driving/${userCoords[1]},${userCoords[0]};${lng},${lat}?overview=full&geometries=geojson`
   );
 
   const data = await res.json();
@@ -49,53 +30,78 @@ async function fetchRoute(lat, lon) {
   const coords = route.geometry.coordinates.map(c => [c[1], c[0]]);
 
   if (routeLine) map.removeLayer(routeLine);
-
   routeLine = L.polyline(coords).addTo(map);
+
   map.fitBounds(routeLine.getBounds());
 
   lastDistKm = route.distance / 1000;
   lastDurMin = Math.round(route.duration / 60);
 
   updateStats();
-}
+});
 
-/* ================= 💰 FARE SYSTEM ================= */
+/* Fare Logic */
 function estimateFares(distanceKm) {
   const base = 50;
+  const surge = Math.random() > 0.7 ? 1.5 : 1;
 
-  return {
-    uber: base + distanceKm * 13,
-    ola: base + distanceKm * 12,
-    rapido: base + distanceKm * 10
-  };
+  return [
+    {
+      name: "Uber Go",
+      icon: "🚗",
+      price: (base + distanceKm * 13) * surge,
+      eta: Math.floor(3 + Math.random() * 5),
+      surge: surge > 1
+    },
+    {
+      name: "Ola Mini",
+      icon: "🚕",
+      price: (base + distanceKm * 12),
+      eta: Math.floor(4 + Math.random() * 6),
+      surge: false
+    },
+    {
+      name: "Rapido Bike",
+      icon: "🏍",
+      price: (40 + distanceKm * 10),
+      eta: Math.floor(2 + Math.random() * 4),
+      surge: false
+    }
+  ];
 }
 
-/* ================= UPDATE PANEL ================= */
+/* UI Update */
 function updateStats() {
-  document.getElementById("statDist").innerHTML =
-    `${lastDistKm.toFixed(1)} km`;
+  document.getElementById("statDist").innerText =
+    lastDistKm.toFixed(1) + " km";
 
-  document.getElementById("statTime").innerHTML =
-    `${lastDurMin} min`;
+  document.getElementById("statTime").innerText =
+    lastDurMin + " min";
 
+  renderFares();
+}
+
+function renderFares() {
   const fares = estimateFares(lastDistKm);
+  const min = Math.min(...fares.map(f => f.price));
 
-  document.getElementById("fareBox").innerHTML = `
-    <div>🚗 Uber: ₹${fares.uber.toFixed(0)}</div>
-    <div>🚕 Ola: ₹${fares.ola.toFixed(0)}</div>
-    <div>🏍 Rapido: ₹${fares.rapido.toFixed(0)}</div>
-  `;
-}
+  const container = document.getElementById("fareBox");
 
-/* ================= REDIRECT ================= */
-function openUber() {
-  if (!destCoords) return;
+  container.innerHTML = fares.map(f => `
+    <div class="fare-card ${f.price === min ? 'cheapest' : ''}">
+      <div class="fare-left">
+        <div>${f.icon}</div>
+        <div>
+          <div class="fare-name">${f.name}</div>
+          <div>${f.eta} min away</div>
+        </div>
+      </div>
 
-  window.open(
-    `https://m.uber.com/ul/?action=setPickup&dropoff[latitude]=${destCoords[0]}&dropoff[longitude]=${destCoords[1]}`
-  );
-}
-
-function openOla() {
-  window.open("https://book.olacabs.com/");
+      <div>
+        <div>₹${f.price.toFixed(0)}</div>
+        ${f.price === min ? '<span class="badge best">BEST</span>' : ''}
+        ${f.surge ? '<span class="badge surge">SURGE</span>' : ''}
+      </div>
+    </div>
+  `).join("");
 }
