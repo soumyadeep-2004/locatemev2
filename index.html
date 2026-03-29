@@ -6,32 +6,68 @@
   <title>LocateME</title>
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&family=DM+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="dark-tiles">
 
 <div id="map"></div>
 
-<!-- HEADER -->
 <div class="header">
-  <div class="brand">📍 LocateME</div>
-  <input id="searchInput" placeholder="Search place...">
+  <div class="brand">
+    <div class="brand-icon">📍</div>
+    <div class="brand-text">Locate<span>ME</span></div>
+  </div>
+
+  <div class="search-area">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input id="searchInput" type="text" placeholder="Search any place…" autocomplete="off"/>
+      <div class="search-spinner" id="searchSpinner"></div>
+      <button class="search-clear" id="clearBtn">✕</button>
+    </div>
+    <div class="suggestions" id="suggestions"></div>
+  </div>
+
+  <div class="transport-bar" id="transportBar">
+    <button class="transport-btn active" data-mode="driving">🚗</button>
+    <button class="transport-btn" data-mode="walking">🚶</button>
+    <button class="transport-btn" data-mode="cycling">🚴</button>
+  </div>
 </div>
 
-<!-- INFO PANEL -->
 <div class="info-panel" id="infoPanel">
-  <div class="title" id="panelName">Destination</div>
+  <div class="panel-header">
+    <div class="panel-dest-icon">📍</div>
+    <div class="panel-title-area">
+      <div class="panel-label">Destination</div>
+      <div class="panel-name" id="panelName">—</div>
+    </div>
+    <button class="panel-close" id="panelClose">✕</button>
+  </div>
 
-  <div class="stats">
-    <div id="statDist">—</div>
-    <div id="statTime">—</div>
+  <div class="panel-stats">
+    <div class="stat-card">
+      <div class="stat-label">📏 Distance</div>
+      <div class="stat-value" id="statDist">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">⏱ Duration</div>
+      <div class="stat-value" id="statTime">—</div>
+    </div>
   </div>
 
   <!-- FARE -->
   <div id="fareBox"></div>
+
+  <div class="panel-actions">
+    <button class="action-btn" id="unitToggle">mi</button>
+    <button class="action-btn" id="fitRouteBtn">⤢ Fit</button>
+    <button class="action-btn primary" id="copyCoords">📋 Copy</button>
+  </div>
 </div>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
