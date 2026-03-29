@@ -11,43 +11,27 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&family=DM+Mono&display=swap" rel="stylesheet">
 </head>
 
-<body class="dark-tiles">
+<body>
 
 <div id="map"></div>
 
 <!-- HEADER -->
 <div class="header">
-  <div class="brand">
-    <div class="brand-icon">📍</div>
-    <div class="brand-text">Locate<span>ME</span></div>
-  </div>
-
-  <div class="search-area">
-    <div class="search-box">
-      <input id="searchInput" type="text" placeholder="Search place...">
-    </div>
-  </div>
+  <div class="brand">📍 LocateME</div>
+  <input id="searchInput" placeholder="Search place...">
 </div>
 
 <!-- INFO PANEL -->
 <div class="info-panel" id="infoPanel">
-  <div class="panel-header">
-    <div id="panelName">Destination</div>
-  </div>
+  <div class="title" id="panelName">Destination</div>
 
-  <div class="panel-stats">
-    <div class="stat-card">
-      <div>Distance</div>
-      <div id="statDist">—</div>
-    </div>
-    <div class="stat-card">
-      <div>Time</div>
-      <div id="statTime">—</div>
-    </div>
+  <div class="stats">
+    <div id="statDist">—</div>
+    <div id="statTime">—</div>
   </div>
 
   <!-- FARE -->
-  <div id="fareBox" class="fare-container"></div>
+  <div id="fareBox"></div>
 </div>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
