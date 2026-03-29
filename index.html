@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
   <link rel="stylesheet" href="style.css">
 
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&family=DM+Mono&display=swap" rel="stylesheet">
 </head>
 
 <body class="dark-tiles">
@@ -24,51 +24,30 @@
 
   <div class="search-area">
     <div class="search-box">
-      <span class="search-icon">🔍</span>
-      <input id="searchInput" type="text" placeholder="Search any place…" autocomplete="off"/>
-      <div class="search-spinner" id="searchSpinner"></div>
-      <button class="search-clear" id="clearBtn">✕</button>
+      <input id="searchInput" type="text" placeholder="Search place...">
     </div>
-    <div class="suggestions" id="suggestions"></div>
-  </div>
-
-  <div class="transport-bar" id="transportBar">
-    <button class="transport-btn active" data-mode="driving">🚗</button>
-    <button class="transport-btn" data-mode="walking">🚶</button>
-    <button class="transport-btn" data-mode="cycling">🚴</button>
   </div>
 </div>
 
 <!-- INFO PANEL -->
 <div class="info-panel" id="infoPanel">
   <div class="panel-header">
-    <div class="panel-dest-icon">📍</div>
-    <div class="panel-title-area">
-      <div class="panel-label">Destination</div>
-      <div class="panel-name" id="panelName">—</div>
-    </div>
-    <button class="panel-close" id="panelClose">✕</button>
+    <div id="panelName">Destination</div>
   </div>
 
   <div class="panel-stats">
     <div class="stat-card">
-      <div class="stat-label">📏 Distance</div>
-      <div class="stat-value" id="statDist">—</div>
+      <div>Distance</div>
+      <div id="statDist">—</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">⏱ Duration</div>
-      <div class="stat-value" id="statTime">—</div>
+      <div>Time</div>
+      <div id="statTime">—</div>
     </div>
   </div>
 
-  <!-- 💰 NEW FARE BOX -->
-  <div id="fareBox" style="padding:12px;font-size:13px;"></div>
-
-  <!-- BOOK BUTTONS -->
-  <div style="display:flex;gap:8px;padding:10px;">
-    <button onclick="openUber()">Uber</button>
-    <button onclick="openOla()">Ola</button>
-  </div>
+  <!-- FARE -->
+  <div id="fareBox" class="fare-container"></div>
 </div>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
