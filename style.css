@@ -1,203 +1,89 @@
-:root {
-  --bg: #0d0f14;
-  --surface: rgba(18, 21, 30, 0.85);
-  --surface2: rgba(28, 32, 46, 0.9);
-  --border: rgba(255,255,255,0.08);
-  --accent: #4f8eff;
-  --accent2: #7c3aed;
-  --accent-glow: rgba(79,142,255,0.3);
-  --success: #10d97e;
-  --warn: #f59e0b;
-  --text: #eef0f7;
-  --text-muted: #7c84a0;
-  --route: #4f8eff;
-  --radius: 16px;
-  --shadow: 0 8px 32px rgba(0,0,0,0.5);
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-html, body {
-  height: 100%;
-  overflow: hidden;
+body {
+  margin: 0;
   font-family: 'Space Grotesk', sans-serif;
-  background: var(--bg);
-  overscroll-behavior: none;
-}
-
-/* MAP */
-#map {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  filter: brightness(0.92) saturate(1.1);
-}
-
-/* HEADER */
-.header {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 1000;
-  padding: 16px 20px;
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  pointer-events: none;
-}
-
-/* BRAND */
-.brand {
-  pointer-events: auto;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--surface);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 10px 16px;
-  box-shadow: var(--shadow);
-}
-
-.brand-icon {
-  width: 28px;
-  height: 28px;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.brand-text {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--text);
-}
-.brand-text span { color: var(--accent); }
-
-/* SEARCH */
-.search-area {
-  pointer-events: auto;
-  flex: 1;
-  max-width: 500px;
-  position: relative;
-}
-
-.search-box {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--surface);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 10px 14px;
-  box-shadow: var(--shadow);
-}
-
-.search-box:focus-within {
-  border-color: var(--accent);
-  box-shadow: var(--shadow), 0 0 0 3px var(--accent-glow);
-}
-
-#searchInput {
-  flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: var(--text);
-}
-
-/* SUGGESTIONS */
-.suggestions {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 0; right: 0;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  max-height: 280px;
-  overflow-y: auto;
-  display: none;
-}
-
-.suggestions.open { display: block; }
-
-.suggestion-item {
-  padding: 12px 16px;
-  cursor: pointer;
-}
-
-.suggestion-item:hover {
-  background: rgba(79,142,255,0.1);
-}
-
-/* INFO PANEL */
-.info-panel {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  width: 320px;
-  background: var(--surface2);
-  border-radius: 20px;
-  box-shadow: var(--shadow);
-  overflow: hidden;
-}
-
-.panel-header {
-  padding: 16px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-}
-
-.panel-name {
-  font-size: 14px;
-  color: var(--text);
-}
-
-/* STATS */
-.panel-stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-.stat-card {
-  padding: 14px;
-}
-
-.stat-value {
-  font-size: 20px;
-  color: var(--text);
-}
-
-/* FARE BOX */
-#fareBox {
-  border-top: 1px solid var(--border);
-  color: var(--text);
-}
-
-/* BUTTONS */
-button {
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  background: #0d0f14;
   color: white;
 }
 
-button:hover {
-  filter: brightness(1.1);
+#map {
+  position: fixed;
+  inset: 0;
 }
 
-/* RESPONSIVE */
-@media (max-width: 600px) {
-  .info-panel {
-    left: 0;
-    right: 0;
-    width: 100%;
-  }
+/* Header */
+.header {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.brand {
+  background: #1c202e;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.search-box input {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+}
+
+/* Panel */
+.info-panel {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  width: 300px;
+  background: #1c202e;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+/* Fare UI */
+.fare-container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fare-card {
+  display: flex;
+  justify-content: space-between;
+  background: #12151e;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.fare-card.cheapest {
+  border: 2px solid #10d97e;
+}
+
+.fare-left {
+  display: flex;
+  gap: 8px;
+}
+
+.fare-name {
+  font-weight: bold;
+}
+
+.badge {
+  font-size: 10px;
+  padding: 2px 5px;
+  border-radius: 5px;
+}
+
+.badge.best {
+  background: #10d97e;
+  color: black;
+}
+
+.badge.surge {
+  background: orange;
+  color: black;
 }
