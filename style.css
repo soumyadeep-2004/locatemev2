@@ -1,37 +1,35 @@
-body {
-  margin: 0;
-  font-family: 'Space Grotesk', sans-serif;
-  background: #0d0f14;
-  color: white;
+/* ROOT */
+:root {
+  --bg: #0d0f14;
+  --surface: rgba(18,21,30,0.85);
+  --surface2: rgba(28,32,46,0.9);
+  --border: rgba(255,255,255,0.08);
+  --accent: #4f8eff;
+  --accent2: #7c3aed;
+  --success: #10d97e;
+  --warn: #f59e0b;
+  --text: #eef0f7;
+  --text-muted: #7c84a0;
 }
 
-#map {
-  position: fixed;
-  inset: 0;
-}
+/* BASIC */
+body { margin:0; background:var(--bg); color:var(--text); font-family:'Space Grotesk'; }
+#map { position:fixed; inset:0; }
 
 /* HEADER */
 .header {
   position: fixed;
-  top: 15px;
-  left: 15px;
+  top: 10px;
+  left: 10px;
   display: flex;
   gap: 10px;
   z-index: 1000;
 }
 
 .brand {
-  background: rgba(0,0,0,0.6);
-  padding: 10px 14px;
-  border-radius: 10px;
-  font-weight: bold;
-}
-
-#searchInput {
+  background: var(--surface);
   padding: 10px;
   border-radius: 10px;
-  border: none;
-  outline: none;
 }
 
 /* PANEL */
@@ -39,66 +37,37 @@ body {
   position: fixed;
   bottom: 15px;
   left: 15px;
-  width: 300px;
-  background: rgba(0,0,0,0.7);
-  border-radius: 16px;
-  padding: 12px;
-}
-
-.title {
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.stats {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
+  width: 320px;
+  background: var(--surface2);
+  border-radius: 20px;
+  padding: 10px;
 }
 
 /* ===== FARE UI ===== */
-
 #fareBox {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
+  margin-top: 10px;
 }
 
 .fare-card {
   display: flex;
   justify-content: space-between;
-  background: rgba(255,255,255,0.08);
-  padding: 10px;
-  border-radius: 10px;
-  transition: 0.2s;
-}
-
-.fare-card:hover {
-  transform: translateY(-2px);
+  background: rgba(255,255,255,0.05);
+  padding: 12px;
+  border-radius: 14px;
 }
 
 .fare-card.cheapest {
-  border: 2px solid #10d97e;
-}
-
-.fare-left {
-  display: flex;
-  gap: 8px;
+  border: 1px solid var(--success);
 }
 
 .badge {
   font-size: 10px;
   padding: 2px 6px;
-  border-radius: 5px;
-  margin-left: 5px;
+  border-radius: 6px;
 }
 
-.badge.best {
-  background: #10d97e;
-  color: black;
-}
-
-.badge.surge {
-  background: orange;
-  color: black;
-}
+.badge.best { background: var(--success); color:black; }
+.badge.surge { background: var(--warn); color:black; }
